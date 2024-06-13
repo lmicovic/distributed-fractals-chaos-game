@@ -109,7 +109,7 @@ Example of Servant node configuration properties:
 
 ------------
 
-More about following topics can be found in repository wiki page:
+More about following topics can be found in wiki page:
 
 - System architecture
 - Application commands
