@@ -1,0 +1,2 @@
+Error: Could not find or load main class app.BootstrapServerWorker
+Caused by: java.lang.ClassNotFoundException: app.BootstrapServerWorker
