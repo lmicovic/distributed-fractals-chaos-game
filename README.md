@@ -41,8 +41,8 @@ We can set commands to system using command-line or using script file named `fil
 ## Nodes in the distributed system
 
 Two types of nodes exists in distributed system:
-- Bootstrap node
-- Servant node
+- [Bootstrap node](https://github.com/lmicovic/distributed-fractals-chaos-game/tree/main#:~:text=Servant%20node-,Bootstrap%20node,-There%20is%20only "Bootstrap node")
+- [Servant node](https://github.com/lmicovic/distributed-fractals-chaos-game/tree/main#:~:text=of%20Bootstrap%20node.-,Servant%20node,-Distributed%20system%20is "Servant node")
 
 
 ### Bootstrap node
