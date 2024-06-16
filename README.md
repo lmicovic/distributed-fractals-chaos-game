@@ -109,7 +109,7 @@ Example of Servant node configuration properties:
 
 ------------
 
-More about following topics can be found in [wiki page](More about following topics can be found in [wiki](https://github.com/lmicovic/distributed-fractals-chaos-game/wiki "wiki") page: "wiki page"):
+More about following topics can be found in [wiki page](https://github.com/lmicovic/distributed-fractals-chaos-game/wiki "wiki page"):
 
 - System architecture
 - Application commands
