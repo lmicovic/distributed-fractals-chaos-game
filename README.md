@@ -37,10 +37,10 @@ Two types of nodes exists in distributed system:
 
 ### Bootstrap node
 ---
-There is only one bootstrap node in the distributed system. [Bootstrap node]($bootstrap-node) is used to support new [Servant nodes]($servant-node) to connect to the distributed network. Communication between [Bootstrap node]($bootstrap-node) and [Servant nodes]($servant-node) are minimal and they communicate with each other only when [Servant node]($servant-node) has to join or leave distributed network. [Bootstrap node]($bootstrap-node) do not know the architecture of distributed and the way [Servant nodes]($servant-node) communicate with each other. [Bootstrap node]($bootstrap-node) has to be always online in order to support new [Servant node]($servant-node) to join or leave distributed network.
+There is only one bootstrap node in the distributed system. [Bootstrap node](#bootstrap-node) is used to support new [Servant nodes](#servant-node) to connect to the distributed network. Communication between [Bootstrap node](#bootstrap-node) and [Servant nodes](#servant-node) are minimal and they communicate with each other only when [Servant node](#servant-node) has to join or leave distributed network. [Bootstrap node](#bootstrap-node) do not know the architecture of distributed and the way [Servant nodes](#servant-node) communicate with each other. [Bootstrap node](#bootstrap-node) has to be always online in order to support new [Servant node](#servant-node) to join or leave distributed network.
 
 #### Bootstrap node configuration:
-To function properly we need to supply configuration file to [Bootstrap node]($bootstrap-node). Configuration file path should be passed as argument in command-line during startup of [Bootstrap node]($bootstrap-node). Configuration parameters in configuration file:
+To function properly we need to supply configuration file to [Bootstrap node](#bootstrap-node). Configuration file path should be passed as argument in command-line during startup of [Bootstrap node](#bootstrap-node). Configuration parameters in configuration file:
 
     bs.ip = ip address of Bootstrap node.
     bs.port = port number of Bootstrap node.
@@ -48,10 +48,10 @@ To function properly we need to supply configuration file to [Bootstrap node]($b
 
 ### Servant node
 ---
-Distributed system is made of mutually connected [Servant nodes]($servant-node). Each [Servant node]($servant-node) is uniquely identified with *ip address*, *port number* and *servantID*.
+Distributed system is made of mutually connected [Servant nodes](#servant-node). Each [Servant node](#servant-node) is uniquely identified with *ip address*, *port number* and *servantID*.
 
 #### Servant node configuration
-To properly configure [Servant node]($servant-node) we need to supply configuration *file path* and *servantID* as argument in command-line during startup of [Servant node]($servant-node). Servant configuration file should contain following properties:
+To properly configure [Servant node](#servant-node) we need to supply configuration *file path* and *servantID* as argument in command-line during startup of [Servant node](#servant-node). Servant configuration file should contain following properties:
 
     ip = ip address of Servant node.
     port = port number of Servant node.
@@ -99,14 +99,14 @@ Example of Servant node configuration properties:
 
 ---
 ## Distributed System Architecture
-Architecture of distributed system is always consistent, but relationships between [Servant nodes]($servant-node) depends on number of [Servant nodes]($servant-node) in the system. Every [Servant node]($servant-node) that connects to the distributed network gets is unique ID that represents his position in distributed network.
+Architecture of distributed system is always consistent, but relationships between [Servant nodes](#servant-node) depends on number of [Servant nodes](#servant-node) in the system. Every [Servant node](#servant-node) that connects to the distributed network gets is unique ID that represents his position in distributed network.
 
-Every [Servant node]($servant-node) has the list of his successive nodes and [Servant node]($servant-node) can directly communicate with his successive [Servant nodes]($servant-node). Every [Servant node]($servant-node) has direct link with his first successive node (with node that has id=currentNodeID+1) and additional direct links, that are used as shortcut links, that are further in the distributed system. Number of shortcut links depends on current number of [Servant nodes]($servant-node) that are in distributed system, every [Servant node]($servant-node) has shortcut links with **(N+2)^l mod n** Servant nodes, where **n** is total number of [Servant nodes]($servant-node) in distributed network. Number **l** is from interval of **[0,…,N]**.
+Every [Servant node](#servant-node) has the list of his successive nodes and [Servant node](#servant-node) can directly communicate with his successive [Servant nodes](#servant-node). Every [Servant node](#servant-node) has direct link with his first successive node (with node that has id=currentNodeID+1) and additional direct links, that are used as shortcut links, that are further in the distributed system. Number of shortcut links depends on current number of [Servant nodes](#servant-node) that are in distributed system, every [Servant node](#servant-node) has shortcut links with **(N+2)^l mod n** Servant nodes, where **n** is total number of [Servant nodes](#servant-node) in distributed network. Number **l** is from interval of **[0,…,N]**.
 
 ### Connecting Servant nodes in distributed network
 ---
 
-Messages that are used to connect [Servant node]($servant-node) in to distributed network:
+Messages that are used to connect [Servant node](#servant-node) in to distributed network:
 
 - [HAIL](#hail-message)
 - [NEW](#newmessage)
@@ -119,7 +119,7 @@ More about system messages can be found in [Messages in Distributed Network](#me
 
 #### HAIL Message
 ---
-If [Servant node]($servant-node) wants to connect to distributed network, node first need to send [HAIL message](#hail-message) to [Bootstrap node]($bootstrap-node). Format of HAIL message is:
+If [Servant node](#servant-node) wants to connect to distributed network, node first need to send [HAIL message](#hail-message) to [Bootstrap node](#bootstrap-node). Format of HAIL message is:
 
     HAIL\n
     newServantIP\n
@@ -132,40 +132,40 @@ Example of HAIL message:
     127.0.0.1\n
     1200\n
 
-When [Bootsrap node]($bootstrap-node) receives HAIL message, then [Bootstrap node]($bootstrap-node) has to return *IP address* and *port number* of first and last [Servant node]($servant-node) in distributed network. Depending on number of [Servant nodes]($servant-node) in distributed network HAIL response should look:
+When [Bootsrap node](#bootstrap-node) receives HAIL message, then [Bootstrap node](#bootstrap-node) has to return *IP address* and *port number* of first and last [Servant node](#servant-node) in distributed network. Depending on number of [Servant nodes](#servant-node) in distributed network HAIL response should look:
 
     lastServantIpAddress:lastServantPort\n
     firstServantIpAddress:first ServantPort\n
 
-If [Servant node]($servant-node) that wants to connect to distributed network is first [Servant node]($servant-node) in distributed network, then [Bootstrap node]($bootstrap-node) respond with HAIL response like:
+If [Servant node](#servant-node) that wants to connect to distributed network is first [Servant node](#servant-node) in distributed network, then [Bootstrap node](#bootstrap-node) respond with HAIL response like:
 
     -1\n
     -1\n
 
 
-If [Servant node]($servant-node) that wants to connect to distributed network is not first [Servant node]($servant-node) in distributed network, then Bootsrap node respond HAIL response like:
+If [Servant node](#servant-node) that wants to connect to distributed network is not first [Servant node](#servant-node) in distributed network, then Bootsrap node respond HAIL response like:
 
     127.0.0.1:1201
     127.0.0.1:1210
 
 #### NewNodeMessage
 ---
-When [Servant node]($servant-node) that wants to join distributed network receives HAIL response from [Bootstrap node]($bootstrap-node), then [Servant node]($servant-node) has to send NewNodeMessage to the last [Servant node]($servant-node) that was connected to distributed network. Information of last connected [Servant node]($servant-node) is provided in [HAIL Message]($hail-message) response. [Servant node]($servant-node) should put lastServantIpAddress:lastServantPort properties in NewNodeMessage and send to last connected [Servant node]($servant-node). When last connected [Servant node]($servant-node) receives NewNodeMessage, then that [Servant node]($servant-node) has to assign new servantID for [Servant node]($servant-node) that wants to connect to distributed network. Servant ID of newly connected [Servant node]($servant-node) should be (newServantNodeID = lastServantNodeID + 1). [Servant node]($servant-node) that received NewNodeMessage sends back NewNodeMessage response that contains newServantID. And now newly connected [Servant node]($servant-node) becomes last connected [Servant node]($servant-node).
+When [Servant node](#servant-node) that wants to join distributed network receives HAIL response from [Bootstrap node](#bootstrap-node), then [Servant node](#servant-node) has to send NewNodeMessage to the last [Servant node](#servant-node) that was connected to distributed network. Information of last connected [Servant node](#servant-node) is provided in [HAIL Message](#hail-message) response. [Servant node](#servant-node) should put lastServantIpAddress:lastServantPort properties in NewNodeMessage and send to last connected [Servant node](#servant-node). When last connected [Servant node](#servant-node) receives NewNodeMessage, then that [Servant node](#servant-node) has to assign new servantID for [Servant node](#servant-node) that wants to connect to distributed network. Servant ID of newly connected [Servant node](#servant-node) should be (newServantNodeID = lastServantNodeID + 1). [Servant node](#servant-node) that received NewNodeMessage sends back NewNodeMessage response that contains newServantID. And now newly connected [Servant node](#servant-node) becomes last connected [Servant node](#servant-node).
 
 #### WelcomeMessage
 ---
-As response to [NewNodeMessage]($newnodemessage) new servantID is assigned for [Servant node]($servant-node) that wants to join to distributed network. WelcomeMessage is sent as response to [NewNodeMessage]($newnodemessage) to [Servant node]($servant-node) that wants to join to distributed network as approval that he is able to join to distributed network. In WelcomeMessage new [Servant node]($servant-node) gets his servantID. New [Servant node]($servant-node) is not part of distributed network yet as he is not aware of other [Servant nodes]($servant-node) in distributed network.
+As response to [NewNodeMessage](#newnodemessage) new servantID is assigned for [Servant node](#servant-node) that wants to join to distributed network. WelcomeMessage is sent as response to [NewNodeMessage](#newnodemessage) to [Servant node](#servant-node) that wants to join to distributed network as approval that he is able to join to distributed network. In WelcomeMessage new [Servant node](#servant-node) gets his servantID. New [Servant node](#servant-node) is not part of distributed network yet as he is not aware of other [Servant nodes](#servant-node) in distributed network.
 
-When new [Servant nodes]($servant-node) receives WelcomeMessage then he sets the last [Servant node]($servant-node) in the distributed network as his predecessor. And for his first successor, node sets the first [Servant node]($servant-node) in distributed network.
+When new [Servant nodes](#servant-node) receives WelcomeMessage then he sets the last [Servant node](#servant-node) in the distributed network as his predecessor. And for his first successor, node sets the first [Servant node](#servant-node) in distributed network.
 
-Then new [Servant node]($servant-node) sends [NewMessage]($newmessage) to [Bootstrap node]($bootstrap-node), to inform him that new Servant node has approval to join distributed network. When [Bootstrap node]($bootstrap-node) receives [NewMessage]($newmessage), he adds new [Servant node]($servant-node) in active [Servant nodes]($servant-node) list.
+Then new [Servant node](#servant-node) sends [NewMessage](#newmessage) to [Bootstrap node](#bootstrap-node), to inform him that new Servant node has approval to join distributed network. When [Bootstrap node](#bootstrap-node) receives [NewMessage](#newmessage), he adds new [Servant node](#servant-node) in active [Servant nodes](#servant-node) list.
 
-Then new [Servant node]($servant-node) sends [UpdateMessage]($updatemessage) to his first successor in order to get information about other [Servant nodes]($servant-node) in distributed network and information about active jobs in network.
+Then new [Servant node](#servant-node) sends [UpdateMessage](#updatemessage) to his first successor in order to get information about other [Servant nodes](#servant-node) in distributed network and information about active jobs in network.
 
 
 #### NewMessage
 ---
-NewMessage is sent by [Servant node]($servant-node) that wants to join distributed network in order to inform [Bootstrap node]($bootstrap-node) that he has approval to join distributed network. Then [Bootstrap]($bootstrap-node) adds new [Servant]($servant-node) in to the list of active [Servant nodes]($servant-node) in network, and [Bootstrap]($bootstrap-node) uses now new [Servant node]($servant-node) as last connected [Servant node]($servant-node) in distributed network. Format of NewMessage:
+NewMessage is sent by [Servant node](#servant-node) that wants to join distributed network in order to inform [Bootstrap node](#bootstrap-node) that he has approval to join distributed network. Then [Bootstrap](#bootstrap-node) adds new [Servant](#servant-node) in to the list of active [Servant nodes](#servant-node) in network, and [Bootstrap](#bootstrap-node) uses now new [Servant node](#servant-node) as last connected [Servant node](#servant-node) in distributed network. Format of NewMessage:
 
     New\n
     newServantIpAddress\n
@@ -181,55 +181,55 @@ Example of NewMessage:
 
 #### UpdateMessage
 ---
-UpdateMessage is sent by new [Servant node]($servant-node) in distributed network, to his first successor [Servant node]($servant-node), in order to get information about other active [Servant nodes]($servant-node) in distributed network. Then list of shortcut links is formed for newly added [Servant node]($servant-node). This list represents the list of newly added Servant nodes successors, and he can communicate with his sucesors directly.
+UpdateMessage is sent by new [Servant node](#servant-node) in distributed network, to his first successor [Servant node](#servant-node), in order to get information about other active [Servant nodes](#servant-node) in distributed network. Then list of shortcut links is formed for newly added [Servant node](#servant-node). This list represents the list of newly added Servant nodes successors, and he can communicate with his sucesors directly.
 
-Then updateMessage travels through every [Servant node]($servant-node) in network. When UpdateMessage returns to newly added [Servant node]($servant-node), all information required for final joining new [Servant node]($servant-node) in to the network is present.
+Then updateMessage travels through every [Servant node](#servant-node) in network. When UpdateMessage returns to newly added [Servant node](#servant-node), all information required for final joining new [Servant node](#servant-node) in to the network is present.
 
-If distributed system has active jobs, then it is required to perform [Job Scheduling](#job-scheduling). Because new [Servant node]($servant-node) is joined in distributed network. [Job Scheduling]($job-scheduling) is triggered by newly added [Servant node]($servant-node) by sending [JobScheduleMessage]($jobschedulemessage) to his successor. That is how [job scheduling process]($job-scheduling-process) in distributed network begins. More about job scheduling process could be found in [Job Scheduling Process Section]($job-scheduling-process).
+If distributed system has active jobs, then it is required to perform [Job Scheduling](#job-scheduling). Because new [Servant node](#servant-node) is joined in distributed network. [Job Scheduling](#job-scheduling) is triggered by newly added [Servant node](#servant-node) by sending [JobScheduleMessage](#jobschedulemessage) to his successor. That is how [job scheduling process](#job-scheduling-process) in distributed network begins. More about job scheduling process could be found in [Job Scheduling Process Section](#job-scheduling-process).
 
 
 ## Job Scheduling process
-In distributed system job is used to describe information about job in distributed system. Job can be active or inactive job.  Information about jobs are defined in configuration file of [Servant nodes]($servant-node). Inactive Information of inactive jobs are stored only in [Servant nodes]($servant-node) in which configuration files job is defined. Other [Servant node]($servant-node) in distributed network are not aware of job existent until job become active, and cannot access inactive jobs information. More about defining jobs could be found in [Job Scheduling Section](#job- scheduling).
+In distributed system job is used to describe information about job in distributed system. Job can be active or inactive job.  Information about jobs are defined in configuration file of [Servant nodes](#servant-node). Inactive Information of inactive jobs are stored only in [Servant nodes](#servant-node) in which configuration files job is defined. Other [Servant node](#servant-node) in distributed network are not aware of job existent until job become active, and cannot access inactive jobs information. More about defining jobs could be found in [Job Scheduling Section](#job- scheduling).
 
 ### Job Scheduling
-Before [job scheduling]($job-scheduling-process), distributed system gives to job [Servant nodes]($servant-node) that are available to participate in job execution.
+Before [job scheduling](#job-scheduling-process), distributed system gives to job [Servant nodes](#servant-node) that are available to participate in job execution.
 
-Number of [Servant nodes]($servant-node) that executes certain job depends on number of [Servants nodes]($servant-node) and number of active jobs in distributed network.
+Number of [Servant nodes](#servant-node) that executes certain job depends on number of [Servants nodes](#servant-node) and number of active jobs in distributed network.
 
-If number of assigned [Servant nodes]($servant-node) to certain job is like that job cannot be splitted on parts that each [Servant node]($servant-node) gets his own jobs fractal region, then [Servant node]($servant-node) becomes idle. [Servant nodes]($servant-node) that are not idle executes calculation of points for his own fractal region. After [Job Scheduling process](#job-scheduling-process) finishes, distributed system is taking care that previously calculated points still belongs to appropriate jobs and fractal ID’s. This is established by sharing data between [Servant nodes] in distributed system after [Job Scheduling process](#job-scheduling-process) of newly added Jobs in distributed system.
+If number of assigned [Servant nodes](#servant-node) to certain job is like that job cannot be splitted on parts that each [Servant node](#servant-node) gets his own jobs fractal region, then [Servant node](#servant-node) becomes idle. [Servant nodes](#servant-node) that are not idle executes calculation of points for his own fractal region. After [Job Scheduling process](#job-scheduling-process) finishes, distributed system is taking care that previously calculated points still belongs to appropriate jobs and fractal ID’s. This is established by sharing data between [Servant nodes] in distributed system after [Job Scheduling process](#job-scheduling-process) of newly added Jobs in distributed system.
 
 #### Messages that are used during Job Scheduling process
 
-- [JobExecutionMessage]($jobexecutionmessage)
-- [AckJobExecutionMessage]($ackjobexecutionmessage)
-- [IdleMessage]($idlemessage)
-- [AckIdleMessage]($ackidlemessage)
-- [ComputedPointsMessage]($computedpointsmessage)
+- [JobExecutionMessage](#jobexecutionmessage)
+- [AckJobExecutionMessage](#ackjobexecutionmessage)
+- [IdleMessage](#idlemessage)
+- [AckIdleMessage](#ackidlemessage)
+- [ComputedPointsMessage](#computedpointsmessage)
 
 #### Message exchange protocol of Job Scheduling process
-[Servant node]($servant-node) that is calculating job scheduling, sends [JobExecutionMessage](#jobexecutionmessage) to [Servant node]($servant-node) which is responsible to calculate fractal ID for certain job. If there is no need to split fractal ID further, then [Servant node]($servant-node) that received [JobExecutionMessage](#jobexecutionmessage) sends AckJobExecutionMessage to [Servant node]($servant-node) that started [Job Scheduling process](#job-scheduling-process), in order to inform him that he is capable to start executing point calculations for job fractal ID, that is assigned to him. If [Servant node]($servant-node) that received [JobExecutionMessage](#jobexecutionmessage) already executes some job, then he needs to send [ComputedPointsMessage]($computedpointsmessage) to his sucesor. In [ComputedPointsMessage]($computedpointsmessage) [Servant node]($servant-node) sends his old fractal ID and job, as information of calculated points that he has calculated for that previous job. This [ComputedPointsMessage]($computedpointsmessage) travels through entire distributed network, and once data of all calculated points in distributed system is synchronized for certain job, then [Servant node]($servant-node) can receive information about new jobs that are scheduled to him, in order to continue executing point calculations for that job, and to prevent data loss of previous point calculations in older jobs, jobs that was executing before [Job Scheduling process](#job-scheduling-process).
+[Servant node](#servant-node) that is calculating job scheduling, sends [JobExecutionMessage](#jobexecutionmessage) to [Servant node](#servant-node) which is responsible to calculate fractal ID for certain job. If there is no need to split fractal ID further, then [Servant node](#servant-node) that received [JobExecutionMessage](#jobexecutionmessage) sends AckJobExecutionMessage to [Servant node](#servant-node) that started [Job Scheduling process](#job-scheduling-process), in order to inform him that he is capable to start executing point calculations for job fractal ID, that is assigned to him. If [Servant node](#servant-node) that received [JobExecutionMessage](#jobexecutionmessage) already executes some job, then he needs to send [ComputedPointsMessage](#computedpointsmessage) to his sucesor. In [ComputedPointsMessage](#computedpointsmessage) [Servant node](#servant-node) sends his old fractal ID and job, as information of calculated points that he has calculated for that previous job. This [ComputedPointsMessage](#computedpointsmessage) travels through entire distributed network, and once data of all calculated points in distributed system is synchronized for certain job, then [Servant node](#servant-node) can receive information about new jobs that are scheduled to him, in order to continue executing point calculations for that job, and to prevent data loss of previous point calculations in older jobs, jobs that was executing before [Job Scheduling process](#job-scheduling-process).
 
-If during [Job Scheduling process]($job-scheduling-process) some [Servant node]($servant-node) is determined to be Idle, then that [Servant node]($servant-node) receives [IdleMessage]($idlemessage). If that [Servant nodes]($servant-node) was already executing some job, then he needs to send [ComputedPointsMessage]($computedpointsmessage) to his sucesor, in order to find [Servant node]($servant-node) that will continue to execute calculations for job that he was executing before [Job Scheduling process](#job-scheduling-process). And in the end Idle [Servant node]($servant-node) sends [AckIdleMessage]($ackidlemessage) to [Servant node]($servant-node) that is performing [Job Scheduling]($job-scheduling) during process, to inform him that process of synchronization with Idle [Servant node]($servant-node) is done.
+If during [Job Scheduling process](#job-scheduling-process) some [Servant node](#servant-node) is determined to be Idle, then that [Servant node](#servant-node) receives [IdleMessage](#idlemessage). If that [Servant nodes](#servant-node) was already executing some job, then he needs to send [ComputedPointsMessage](#computedpointsmessage) to his sucesor, in order to find [Servant node](#servant-node) that will continue to execute calculations for job that he was executing before [Job Scheduling process](#job-scheduling-process). And in the end Idle [Servant node](#servant-node) sends [AckIdleMessage](#ackidlemessage) to [Servant node](#servant-node) that is performing [Job Scheduling](#job-scheduling) during process, to inform him that process of synchronization with Idle [Servant node](#servant-node) is done.
 
-This protocol must be satisfied, if some [Servant node]($servant-node) wants to be part of [Job Scheduling process](#job-scheduling-process).
+This protocol must be satisfied, if some [Servant node](#servant-node) wants to be part of [Job Scheduling process](#job-scheduling-process).
 
 #### Stopping Active Job
-Stopping active job in distributed system cause similar events as starting new job. It start [Job Scheduling process](#job-scheduling-process) and sharing calculated data with other [Servant nodes]($servant-node). Command **stop[x]** where x is name of the job, triggers [Job Scheduling]($job-scheduling) and temporally suspension of execution Jobs in the system.
+Stopping active job in distributed system cause similar events as starting new job. It start [Job Scheduling process](#job-scheduling-process) and sharing calculated data with other [Servant nodes](#servant-node). Command **stop[x]** where x is name of the job, triggers [Job Scheduling](#job-scheduling) and temporally suspension of execution Jobs in the system.
 
-On [Servant node]($servant-node) that **stop[x]** command is executed starts [Job Scheduling process](#job-scheduling-process). When stop command is executed then all Servant nodes that contains parts of executed point data for stopped job has to delete all job data.
+On [Servant node](#servant-node) that **stop[x]** command is executed starts [Job Scheduling process](#job-scheduling-process). When stop command is executed then all Servant nodes that contains parts of executed point data for stopped job has to delete all job data.
 
 #### Leaving Distributed Network
-Executing command **quit** on [Servant node]($servant-node) will start process of leaving distributed network. Then [Servant node]($servant-node) sends circular [QuitMessage](#quitmessage) informing other [Servant nodes]($servant-node) that he is leaving distributed network.  [QuitMessage](#quitmessage) start process of updating distributed network global state and lists of each [Servant node]($servant-node) sucesors. After [Job Scheduling process](#job-scheduling-process) is executed. More about Job Scheduling process can be found in [Job Scheduling Section](#job-scheduling).
+Executing command **quit** on [Servant node](#servant-node) will start process of leaving distributed network. Then [Servant node](#servant-node) sends circular [QuitMessage](#quitmessage) informing other [Servant nodes](#servant-node) that he is leaving distributed network.  [QuitMessage](#quitmessage) start process of updating distributed network global state and lists of each [Servant node](#servant-node) sucesors. After [Job Scheduling process](#job-scheduling-process) is executed. More about Job Scheduling process can be found in [Job Scheduling Section](#job-scheduling).
 
 
-Messages that are used when [Servant node]($servant-node) wants to leave distributed newtork:
+Messages that are used when [Servant node](#servant-node) wants to leave distributed newtork:
 
 - [QuitMessage](#quitmessage)
-- [ComputedPointsMessage]($computedpointsmessage)
+- [ComputedPointsMessage](#computedpointsmessage)
 
 
 ## Current job status report
-If we want to get status information of certain active job we can execute **status** command on some of the [Server nodes]($servant-node). If we do not specify any argument with status command, then data of all executing jobs and fractal ID will be presented.
+If we want to get status information of certain active job we can execute **status** command on some of the [Server nodes](#servant-node). If we do not specify any argument with status command, then data of all executing jobs and fractal ID will be presented.
 
     status
 
@@ -246,8 +246,8 @@ If we specify name of the job and fractal ID in **status** command, then data ab
 
 Messages that are used durning job status report generation:
 
-- [AskStatusMessage]($askstatusmessage)
-- [TellStatusMessage]($tellstatusmessage)
+- [AskStatusMessage](#askstatusmessage)
+- [TellStatusMessage](#tellstatusmessage)
 
 
 Example – status command output:
@@ -266,7 +266,7 @@ Status:
 
 
 ## View Job Result
-If we want to get result of executing certain job we can use **result** command in any of the [Servant nodes]($servant-node). **Result** command starts the process of gathering job execution results.
+If we want to get result of executing certain job we can use **result** command in any of the [Servant nodes](#servant-node). **Result** command starts the process of gathering job execution results.
 
 If we specify only job name, then data of all jobs fractal IDs will be presented.
 
@@ -285,7 +285,7 @@ If we specify job name and fractal ID in command result, then data of specific f
 
 
 ## Communication between Servant Nodes
-Communication between [Servant nodes]($servant-node) in distributed network is handled using Socket that is not [FIFO (First-in-First-Out)](https://www.geeksforgeeks.org/socket-in-computer-network/ "FIFO (First-in-First-Out)"). Every [Servant node]($servant-node) contains its unique IP address, port number and servantID.
+Communication between [Servant nodes](#servant-node) in distributed network is handled using Socket that is not [FIFO (First-in-First-Out)](https://www.geeksforgeeks.org/socket-in-computer-network/ "FIFO (First-in-First-Out)"). Every [Servant node](#servant-node) contains its unique IP address, port number and servantID.
 
     ipAddress|portNumber|servantID
 
@@ -294,7 +294,7 @@ Messages that are used in distributed network must extends **BasicMessage** clas
 
 ### Routing Messages through Distributed Network
 ---
-Any [Servant node]($servant-node) can send message directly to other [Servant node]($servant-node), only if other [Servant node]($servant-node) is his direct sucesor or if first [Servant node]($servant-node) has that [Servant node]($servant-node) in his **shortcut list**.
+Any [Servant node](#servant-node) can send message directly to other [Servant node](#servant-node), only if other [Servant node](#servant-node) is his direct sucesor or if first [Servant node](#servant-node) has that [Servant node](#servant-node) in his **shortcut list**.
 
 Distributed System has two types of messages:
 
@@ -302,10 +302,10 @@ Distributed System has two types of messages:
 - [Messages referred to specific node](#messages-referred-to-specific-node)
 
 #### Circular Messages
-Some messages are required to be sent circularly through distributed network from one [Servant node]($servant-node) to another. Circular Message ends its network traversal when it arrives to the [Servant node]($servant-node) that firstly sent that message.
+Some messages are required to be sent circularly through distributed network from one [Servant node](#servant-node) to another. Circular Message ends its network traversal when it arrives to the [Servant node](#servant-node) that firstly sent that message.
 
 #### Messages referred to specific node
-Some messages are required to be sent to specific node. Those messages could be sent directly to [Servant node]($servant-node) if [Servant nodes]($servant-node) are direct sucesors or has that node in shortcut list, or indirectly if two nodes are distant in distributed network.
+Some messages are required to be sent to specific node. Those messages could be sent directly to [Servant node](#servant-node) if [Servant nodes](#servant-node) are direct sucesors or has that node in shortcut list, or indirectly if two nodes are distant in distributed network.
 
 **Example:** *if Servant node A is not direct sucesor of Servant node B, or Servant A don’t have defined Servant node B in his shortcut list, then we will send message to Servant node B using mediator Servant nodes, that are closest to Servant node B and has direct link with Servant node A.*
 
@@ -325,9 +325,9 @@ BasicMessage class parameters:
 - clock – logical clock that is used for [Lamport Mutex](https://en.wikipedia.org/wiki/Lamport%27s_distributed_mutual_exclusion_algorithm "Lamport Mutex").
 
 ### NewNodeMessage
-[Servant node]($servant-node) sends NewNodeMessage to other [Servant nodes]($servant-node) after communication with [Bootstrap node]($bootstrap-node). [Servant node]($servant-node) who wants to join to distributed network send this message to last Servant node in network to inform the nodes that he wants to join. 
+[Servant node](#servant-node) sends NewNodeMessage to other [Servant nodes](#servant-node) after communication with [Bootstrap node](#bootstrap-node). [Servant node](#servant-node) who wants to join to distributed network send this message to last Servant node in network to inform the nodes that he wants to join. 
 
-[Servant node]($servant-node) who wants to join network receives [WelcomeMessage](#welcomemessage) with his servantID.
+[Servant node](#servant-node) who wants to join network receives [WelcomeMessage](#welcomemessage) with his servantID.
 
 
 NewNode message parameters are:
@@ -337,7 +337,7 @@ NewNode message parameters are:
 
 
 ### WelcomeMessage
-[Servant node]($servant-node) who received [NewNodeMessage](#newnodemessage) sends WelcomeMessage to [Servant node]($servant-node) who wants to join distributed network.
+[Servant node](#servant-node) who received [NewNodeMessage](#newnodemessage) sends WelcomeMessage to [Servant node](#servant-node) who wants to join distributed network.
 
 WelcomeMessage parameters are:
 
@@ -346,7 +346,7 @@ WelcomeMessage parameters are:
 
 
 ### UpadateMessage
-This is circular message that sends [Servant node]($servant-node) that just joined in to the distributed network. When UpdateMessage returns to [Servant node]($servant-node) that sent it first, then he can update information about other [Servant nodes]($servant-node) in distributed network. This message triggers [Job Scheduling Process](#job-scheduling-process).
+This is circular message that sends [Servant node](#servant-node) that just joined in to the distributed network. When UpdateMessage returns to [Servant node](#servant-node) that sent it first, then he can update information about other [Servant nodes](#servant-node) in distributed network. This message triggers [Job Scheduling Process](#job-scheduling-process).
 
 UpdateMessage parameters are:
 
@@ -356,7 +356,7 @@ UpdateMessage parameters are:
 
 
 ### QuitMessage
-This is circular message that is sent by [Servant node]($servant-node) that wants to leave distributed network. [Servant node]($servant-node) who receives QuitMessage have to update his successor map. This message trigers [Job Scheduling process](#job-scheduling-process).
+This is circular message that is sent by [Servant node](#servant-node) that wants to leave distributed network. [Servant node](#servant-node) who receives QuitMessage have to update his successor map. This message trigers [Job Scheduling process](#job-scheduling-process).
 
 QuitMessage parameters are:
 
@@ -385,7 +385,7 @@ JobScheduleMessage parameters are:
 
 
 ### JobExecutionMessage
-This message is sent by [Servant node]($servant-node) that trigered [Job Scheduling process](#job-scheduling-process) or [Servant node]($servant-node) that has done specific part of [Job Scheduling](#job-scheduling). Receiver of this message has to update information about new Job Schedule, as he will send information of previously calculated points to certain Servant Job, if he was working on any job. If reciever of this message got more than one fractal ID, then he has to make additional Scheduling based on fractal IDs list and points that he received, and then he could start calculating new points.
+This message is sent by [Servant node](#servant-node) that trigered [Job Scheduling process](#job-scheduling-process) or [Servant node](#servant-node) that has done specific part of [Job Scheduling](#job-scheduling). Receiver of this message has to update information about new Job Schedule, as he will send information of previously calculated points to certain Servant Job, if he was working on any job. If reciever of this message got more than one fractal ID, then he has to make additional Scheduling based on fractal IDs list and points that he received, and then he could start calculating new points.
 
 Also receiver sends AckJobExecutionMessage to Servant node that started [Job Scheduling process](#job-scheduling-process) as response to JobExecutionMessage.
 
@@ -413,7 +413,7 @@ JobExecutionMessage parameters are:
     finalReceiverId – represents id of Servant node that should recevie certain message. (int)
 
 ###AckIdleMessage
-This message is sent by [Servant node]($servant-node) that previously received [IdleMessage]($idlemessage), node that does not execute any job after [Job Scheduling process]($job-scheduling-process). AckIdleMessage is sent to [Servant node]($servant-node) that was executing [Job Scheduling process]($job-scheduling-process) as a response to [IdleMessage]($idlemessage). Receiver of AckIdleMessage updates its information about [Servant nodes]($servant-node) that should respond to its [jobExecutionMessage]($jobexecutionmessage) or [IdleMessage]($idlemessage) by incrementing the number of ACK message responses counter.
+This message is sent by [Servant node](#servant-node) that previously received [IdleMessage](#idlemessage), node that does not execute any job after [Job Scheduling process](#job-scheduling-process). AckIdleMessage is sent to [Servant node](#servant-node) that was executing [Job Scheduling process](#job-scheduling-process) as a response to [IdleMessage](#idlemessage). Receiver of AckIdleMessage updates its information about [Servant nodes](#servant-node) that should respond to its [jobExecutionMessage](#jobexecutionmessage) or [IdleMessage](#idlemessage) by incrementing the number of ACK message responses counter.
 
 AckIdleMessage parameters are:
 
@@ -421,7 +421,7 @@ AckIdleMessage parameters are:
 
 
 ###ComputedPointsMessage
-This message is sent by [Servant node]($servant-node) that was calculating the points for specific job and fractal ID, but [Job Scheduling]($[job-scheduling]) was triggered in distributed system, so he needs to hands over his data of calculated points to the new [Servant node]($servant-node) that should continue executing his job, after new Job Scheduling process finished.
+This message is sent by [Servant node](#servant-node) that was calculating the points for specific job and fractal ID, but [Job Scheduling](#[job-scheduling]) was triggered in distributed system, so he needs to hands over his data of calculated points to the new [Servant node](#servant-node) that should continue executing his job, after new Job Scheduling process finished.
 
 ComputedPointsMessage parameters are:
 
@@ -433,9 +433,9 @@ ComputedPointsMessage parameters are:
 
 
 ###AskStatusMessage
-This message is sent by [Servant node]($servant-node) on which was inicialized execution of **status** command. If it was defined retrieve data for specific job and fractal ID, then AskStatusMessage is sent only to the [Servant node]($servant-node) that was executing calculations for specific job. If we define **status** command only the name of the job, then AskStatusMessage is sent to first [Servant node]($servant-node) in the distributed system who was executing that job. If it was defined to get status of all jobs in distributed system, then AskStatusMessage is sent to nodes first successor.
+This message is sent by [Servant node](#servant-node) on which was inicialized execution of **status** command. If it was defined retrieve data for specific job and fractal ID, then AskStatusMessage is sent only to the [Servant node](#servant-node) that was executing calculations for specific job. If we define **status** command only the name of the job, then AskStatusMessage is sent to first [Servant node](#servant-node) in the distributed system who was executing that job. If it was defined to get status of all jobs in distributed system, then AskStatusMessage is sent to nodes first successor.
 
-If it was required to get data for specific job and fractal ID, then receiver of AskStatusMessage returns his points calculations using [TellStatusMessage]($tellstatusmessage). If it was required to get status of specific job, then receiver of the AskStatusMessage adds his point calculation for fractal ID for that job in [AskTellMessage]($asktellmessage), and then sends [AskTellMessage]($asktellmessage) to next [Servant node]($servant-node) that is executing other fractal ID for that job. When [AskTellMessage]($asktellmessage) reaches the last [Servant node]($servant-node) in the distributed system that is executing any fractal ID for specific job, at that time all data for all fractals calculations are present already in [AskTellMessage]($asktellmessage), so last [Servant node]($servant-node) sends all fractals ID point calculation for specific job to [Servant node]($servant-node) that initialized **status** command execution using [TellStatusMessage]($tellstatusmessage).
+If it was required to get data for specific job and fractal ID, then receiver of AskStatusMessage returns his points calculations using [TellStatusMessage](#tellstatusmessage). If it was required to get status of specific job, then receiver of the AskStatusMessage adds his point calculation for fractal ID for that job in [AskTellMessage](#asktellmessage), and then sends [AskTellMessage](#asktellmessage) to next [Servant node](#servant-node) that is executing other fractal ID for that job. When [AskTellMessage](#asktellmessage) reaches the last [Servant node](#servant-node) in the distributed system that is executing any fractal ID for specific job, at that time all data for all fractals calculations are present already in [AskTellMessage](#asktellmessage), so last [Servant node](#servant-node) sends all fractals ID point calculation for specific job to [Servant node](#servant-node) that initialized **status** command execution using [TellStatusMessage](#tellstatusmessage).
 
 AskStatusMessage parameters are:
 
@@ -454,7 +454,7 @@ AskStatusMessage parameters are:
 
 
 ###TellStatusMessage
-This message is sent by [Servant node]($servant-node) who lastly added data about fractal ID calculated points for required job name. Receiver of this message is [Servant node]($servant-node) on which was initialized **get status** command. When [Servant node]($servant-node) receives this message, critical section is released and results of get status command are printed.
+This message is sent by [Servant node](#servant-node) who lastly added data about fractal ID calculated points for required job name. Receiver of this message is [Servant node](#servant-node) on which was initialized **get status** command. When [Servant node](#servant-node) receives this message, critical section is released and results of get status command are printed.
 
 TellStatusMessage contains following parameters:
 
@@ -472,7 +472,7 @@ TellStatusMessage contains following parameters:
 
 
 ###AskJobFractalIdResultMessage
-This message is sent by [Servant node]($servant-node) that initialized **get result** command with name of the job and fractal ID. [AskJobFractalIdResultMessage]($askjobfractalidresultmessage) is sent to [Servant node]($servant-node) who is executing fractal ID for specified job. When [Servant node]($servant-node) receive this message, then as response he sends [TellJobFractalIdResultMessage]($telljobfractalidresultmessage) to [Servant node]($servant-node) that initialize **get result** command.
+This message is sent by [Servant node](#servant-node) that initialized **get result** command with name of the job and fractal ID. [AskJobFractalIdResultMessage](#askjobfractalidresultmessage) is sent to [Servant node](#servant-node) who is executing fractal ID for specified job. When [Servant node](#servant-node) receive this message, then as response he sends [TellJobFractalIdResultMessage](#telljobfractalidresultmessage) to [Servant node](#servant-node) that initialize **get result** command.
 
 AskJobFractalIdResultMessage parameters are:
 
@@ -483,9 +483,9 @@ AskJobFractalIdResultMessage parameters are:
 
 
 ###AskJobResultMessage
-This message is sent by [Servant node]($servant-node) who initialized **get result** command. Message is sent to the first [Servant node]($servant-node) that is calculating points for specified fractal ID for that job that is specified in get result command. Then AskJobResultMessage is forwarding all the way to the last [Servant node]($servant-node) that is calculating points for specific job.
+This message is sent by [Servant node](#servant-node) who initialized **get result** command. Message is sent to the first [Servant node](#servant-node) that is calculating points for specified fractal ID for that job that is specified in get result command. Then AskJobResultMessage is forwarding all the way to the last [Servant node](#servant-node) that is calculating points for specific job.
 
-Receiver of AskJobResultMessage adds his calculation data to the message, and if there is any [Servant node]($servant-node) who is executing calculations for specific job left, then the AskJobResultMessage is forwarded to the next [Servant node]($servant-node) that is executing calculations for that job. If receiver of AskJobResultMessage is last [Servant node]($servant-node) who executes that job, then he sends TellJobResultMessage to [Servant node]($servant-node) who initialized get result command. 
+Receiver of AskJobResultMessage adds his calculation data to the message, and if there is any [Servant node](#servant-node) who is executing calculations for specific job left, then the AskJobResultMessage is forwarded to the next [Servant node](#servant-node) that is executing calculations for that job. If receiver of AskJobResultMessage is last [Servant node](#servant-node) who executes that job, then he sends TellJobResultMessage to [Servant node](#servant-node) who initialized get result command. 
 
 AskJobResultMessage parameters are:
 
@@ -498,7 +498,7 @@ AskJobResultMessage parameters are:
 
 
 ###TellJobResultMessage
-This message is sent by last [Servant node]($servant-node) that is executing calculations for specific job. Receiver of this message is [Servant node]($servant-node) that initialized **get result** command. Receiver of this message releases critical section and presents the results of specified jobs calculations in image (.png) format. Result image is stored on following path *- “/results/jobName_proprotion.png”*.
+This message is sent by last [Servant node](#servant-node) that is executing calculations for specific job. Receiver of this message is [Servant node](#servant-node) that initialized **get result** command. Receiver of this message releases critical section and presents the results of specified jobs calculations in image (.png) format. Result image is stored on following path *- “/results/jobName_proprotion.png”*.
 
 
 Parameters of TellJobResultMessage are:
@@ -513,7 +513,7 @@ Parameters of TellJobResultMessage are:
 
 
 ###StopJobMessage
-This is circular message that is sent by [Servant node]($servant-node) that started **stop** command for specific job. This message is received by every [Servant node]($servant-node) in distributed system. When [Servant node]($servant-node) receives this message, it is required to delete specific job and its calculation data. If receiver of this message was executing specific job, then he has to stop executing that job, and then forwards the StopJobMessage to the next [Servant node]($servant-node). If all Servant nodes are notified about stopping certain job, then [Job Scheduling process]($job-scheduling-process) is triggered. 
+This is circular message that is sent by [Servant node](#servant-node) that started **stop** command for specific job. This message is received by every [Servant node](#servant-node) in distributed system. When [Servant node](#servant-node) receives this message, it is required to delete specific job and its calculation data. If receiver of this message was executing specific job, then he has to stop executing that job, and then forwards the StopJobMessage to the next [Servant node](#servant-node). If all Servant nodes are notified about stopping certain job, then [Job Scheduling process](#job-scheduling-process) is triggered. 
 
 Parameters of StopJobMessage are:
 
